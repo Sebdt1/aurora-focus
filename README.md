@@ -1,36 +1,23 @@
-# 🌌 Aurora Focus
+# Aurora Focus
 
-Temporizador **Pomodoro** animado escrito en Python puro — sin dependencias externas, solo `tkinter` (incluido con Python).
+Un temporizador Pomodoro en Python puro, sin ninguna dependencia — solo tkinter, que ya viene con el intérprete. Nació como excusa para ver hasta dónde se puede estirar un Canvas de tkinter antes de que se vea feo, y terminó gustando más de lo esperado.
 
-El tiempo restante es un anillo de luz que se va consumiendo, rodeado de ~70 partículas que orbitan, parpadean como estrellas y se aceleran a medida que se agota el tiempo. Al completar un ciclo, estallan en una explosión de luces y la paleta cambia de color según el modo.
+La idea es simple: el tiempo que queda es un anillo de luz que se va vaciando, rodeado de un puñado de partículas que orbitan y parpadean como estrellas. Cuando se acaba el tiempo el anillo pasa de azul a ámbar y después a rojo, y las partículas se aceleran — nada sutil, pero avisa sin sacarte de lo que estás haciendo. Al cerrar un ciclo, todo estalla en una lluvia de partículas y suena un beep.
 
-## ✨ Características
+Tiene los dos modos de siempre, enfoque y descanso, cada uno con su propia paleta de colores, y el descanso arranca solo en cuanto termina el enfoque para no tener que tocar nada. La duración se ajusta entre 5 y 60 minutos con los botones + y −, y el descanso se calcula como una fracción de esa duración. También cuenta cuántos ciclos completaste en la sesión, por si te gusta ver ese número subir.
 
-- **Anillo de progreso luminoso** con halo y punta brillante que recorre el círculo
-- **Partículas orbitales** que reaccionan al tiempo: entran en frenesí en el tramo final mientras el anillo pasa de azul → ámbar → rojo
-- **Explosión de partículas** y sonido al completar cada ciclo
-- **Modos enfoque / descanso** con paletas propias (azul-violeta / verde-dorado); el descanso arranca solo al terminar el enfoque
-- **Duración ajustable** de 5 a 60 minutos (el descanso se calcula proporcionalmente)
-- **Contador de ciclos** completados en la sesión
-- Fondo de estrellas titilantes, botones con hover y reloj que "respira"
+## Cómo correrlo
 
-## 🚀 Uso
-
-Requiere Python 3.8+ (con tkinter, que viene incluido en la instalación estándar).
+Hace falta Python 3.8 o más nuevo, con tkinter (viene incluido en casi cualquier instalación estándar).
 
 ```bash
 python aurora_focus.py
 ```
 
-## ⌨️ Controles
+## Controles
 
-| Tecla / acción | Función |
-|---|---|
-| `Espacio` | Iniciar / pausar |
-| `R` | Reiniciar |
-| `+` / `−` | Ajustar duración del enfoque |
-| Clic | Todos los controles también funcionan con el mouse |
+Espacio inicia o pausa, R reinicia, + y − ajustan la duración del enfoque. Todo también funciona con clics si prefieres el mouse.
 
-## 🖼️ Cómo funciona
+## Por dentro
 
-Todo se dibuja a ~60 fps sobre un `tkinter.Canvas`: el brillo y los halos se simulan interpolando colores hex hacia el fondo (tkinter no tiene canal alfa), las partículas orbitan con oscilación radial senoidal, y el temporizador usa `time.monotonic()` para no perder precisión aunque la animación fluctúe.
+Todo se dibuja cuadro por cuadro sobre un `tkinter.Canvas`, a unos 60 fps. Como tkinter no tiene canal alfa, el brillo y los halos son en el fondo una interpolación de colores hex hacia el color de fondo — un truco algo rudimentario, pero que funciona bien. El temporizador usa `time.monotonic()` en lugar de restar un contador en cada frame, para que no se desincronice si la animación tiene algún hipo.
